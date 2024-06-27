@@ -2,7 +2,7 @@
 CrimsonCache is a synthetic bloodbank database that matches current aggregate blood donation data in the US.
 
 # About the data
-First of all, this is a synthetic dataset. The people contained within it are not real. The aggregate statistics, however, are taken from [statistica](statistica.com), an article by the [Stanford Blood Center](https://stanfordbloodcenter.org/products-and-services/) provided the data on donation by race.
+First of all, this is a synthetic dataset. The people contained within it are not real. The aggregate statistics, however, are taken from [statistica](https://www.statista.com/topics/7512/blood-donation-in-the-us/), an article by the [Stanford Blood Center](https://stanfordbloodcenter.org/products-and-services/) provided the data on donation by race.
 
 Speaking of race, you'll notice I have color as field. I don't think its the best way of capturing variety but I don't think race works either. For example, you could be white and every single one of your ancestors from Ireland. But you would still be listed as Caucasian. You could be from Egypt and newly arrived in the state with the same degree of lineage. Good luck telling people you're African American. Same goes for South African. And I have never once seen a decent list of what all the races should be. But, we know things like [sickle cell disease](https://en.wikipedia.org/wiki/Sickle_cell_disease) have a genetic component that is best described with the accurate (but wordy) "people of sub-Saharan African origin living in other parts of the world" so dispensing with the collection is probably not a great idea. So, it stays until it gets replaced by something better.
 
