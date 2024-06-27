@@ -40,20 +40,29 @@ race_distribution = [
     ('Other', 0.06),
 ]
 
+# Custom provider to ensure name matches sex
+class CustomProvider:
+    @staticmethod
+    def name(sex):
+        if sex == 'Male':
+            return fake.name_male()
+        else:
+            return fake.name_female()
+
 # Factory for creating a donor
 class DonorFactory(factory.Factory):
     class Meta:
         model = dict
 
     donor_id = factory.Sequence(lambda n: n + 1)
-    name = factory.Faker('name')
-    age = factory.LazyAttribute(lambda x: random.choices(
-        [age if isinstance(age, int) else random.choice(list(age)) for age, _ in age_distribution],
-        [prob for _, prob in age_distribution]
-    )[0])
     sex = factory.LazyAttribute(lambda x: random.choices(
         [sex for sex, _ in sex_distribution],
         [prob for _, prob in sex_distribution]
+    )[0])
+    name = factory.LazyAttribute(lambda x: CustomProvider.name(x.sex))
+    age = factory.LazyAttribute(lambda x: random.choices(
+        [age if isinstance(age, int) else random.choice(list(age)) for age, _ in age_distribution],
+        [prob for _, prob in age_distribution]
     )[0])
     race = factory.LazyAttribute(lambda x: random.choices(
         [race for race, _ in race_distribution],
@@ -96,6 +105,6 @@ for _ in range(1000):  # Adjust the number of donors as needed
         })
 
 # Display a sample of the generated data
-for donor in donors[:10]:
+for donor in donors[:50]:
     print(donor)
 
