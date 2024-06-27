@@ -1,5 +1,5 @@
 # CrimsonCache
-CrimsonCache is a synthetic bloodbank database that matches current aggregate blood donation data in the US.
+CrimsonCache is a synthetic bloodbank database that matches current aggregate blood donation data in the US. It's designed for SQL practice.
 
 # About the data
 First of all, this is a synthetic dataset. The people contained within it are not real. The aggregate statistics, however, are taken from [statistica](https://www.statista.com/topics/7512/blood-donation-in-the-us/), an article by the [Stanford Blood Center](https://stanfordbloodcenter.org/products-and-services/) provided the data on donation by race.

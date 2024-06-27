@@ -64,6 +64,7 @@ class DonorFactory(factory.Factory):
         [age if isinstance(age, int) else random.choice(list(age)) for age, _ in age_distribution],
         [prob for _, prob in age_distribution]
     )[0])
+    birthdate = factory.LazyAttribute(lambda x: datetime.today().replace(year=datetime.today().year - x.age).date())
     race = factory.LazyAttribute(lambda x: random.choices(
         [race for race, _ in race_distribution],
         [prob for _, prob in race_distribution]
@@ -84,6 +85,9 @@ def generate_donation_dates(start_date, num_donations):
         current_date += timedelta(days=random.randint(112, 365))
         if current_date.date() > datetime.today().date():
             break
+        # Randomly skip some years
+        if random.random() < 0.3:
+            current_date += timedelta(days=365 * random.randint(1, 3))
         donation_dates.append(current_date.date())
     return donation_dates
 
@@ -92,19 +96,20 @@ donors = []
 for _ in range(1000):  # Adjust the number of donors as needed
     donor = DonorFactory()
     donation_dates = generate_donation_dates(donor['last_donation_date'], donor['number_of_donations'])
-    for date in donation_dates:
+    for idx, date in enumerate(donation_dates):
         donors.append({
             'donor_id': donor['donor_id'],
             'name': donor['name'],
-            'age': donor['age'],
+            'birthdate': donor['birthdate'].strftime('%Y-%m-%d'),
+            'age_at_donation': (date.year - donor['birthdate'].year) - ((date.month, date.day) < (donor['birthdate'].month, donor['birthdate'].day)),
             'sex': donor['sex'],
             'race': donor['race'],
             'blood_type': donor['blood_type'],
-            'first_time_donor': donor['first_time_donor'],
+            'first_time_donor': donor['first_time_donor'] if idx == 0 else False,
             'donation_date': date.strftime('%Y-%m-%d')
         })
 
 # Display a sample of the generated data
-for donor in donors[:50]:
+for donor in donors[:40]:
     print(donor)
 
