@@ -45,12 +45,35 @@ ethnicity_distribution = [
 
 # Define blood type distribution by ethnicity
 blood_type_by_ethnicity = {
-    'White': [('O positive', 0.45), ('A positive', 0.40), ('B positive', 0.11), ('AB positive', 0.04)],
-    'Hispanic': [('O positive', 0.57), ('A positive', 0.31), ('B positive', 0.10), ('AB positive', 0.03)],
-    'Black': [('O positive', 0.50), ('A positive', 0.26), ('B positive', 0.20), ('AB positive', 0.04)],
-    'Asian': [('O positive', 0.40), ('A positive', 0.28), ('B positive', 0.25), ('AB positive', 0.07)],
-    'Native American': [('O positive', 0.55), ('A positive', 0.35), ('B positive', 0.08), ('AB positive', 0.03)],
-    'Native Hawaiian or Pacific Islander': [('O positive', 0.55), ('A positive', 0.35), ('B positive', 0.08), ('AB positive', 0.03)],
+    'White': [('O positive', 0.37), ('O negative', 0.08), 
+              ('A positive', 0.33), ('A negative', 0.07),
+              ('B positive', 0.09), ('B negative', 0.02), 
+              ('AB positive', 0.03),('AB negative', 0.01)],
+    
+    'Hispanic':[('O positive', 0.53), ('O negative', 0.04), 
+              ('A positive', 0.29), ('A negative', 0.02),
+              ('B positive', 0.09), ('B negative', 0.01), 
+              ('AB positive', 0.02),('AB negative', 0.01)],
+    
+    'Black':[('O positive', 0.46), ('O negative', 0.04), 
+              ('A positive', 0.24), ('A negative', 0.02),
+              ('B positive', 0.18), ('B negative', 0.01), 
+              ('AB positive', 0.04),('AB negative', 0.01)] ,
+    
+    'Asian':[('O positive', 0.39), ('O negative', 0.01), 
+              ('A positive', 0.27), ('A negative', 0.005),
+              ('B positive', 0.25), ('B negative', 0.004), 
+              ('AB positive', 0.07),('AB negative', 0.001)] ,
+
+    'Native American':[('O positive', 0.5), ('O negative', 0.046), 
+              ('A positive', 0.314), ('A negative', 0.03),
+              ('B positive', 0.074), ('B negative', 0.006), 
+              ('AB positive', 0.028),('AB negative', 0.002)] ,
+
+    'Native Hawaiian or Pacific Islander':[('O positive', 0.388), ('O negative', 0.03), 
+              ('A positive', 0.32), ('A negative', 0.03),
+              ('B positive', 0.16), ('B negative', 0.008), 
+              ('AB positive', 0.06),('AB negative', 0.004)] ,
 }
 
 # Custom provider to ensure name matches sex
@@ -124,7 +147,7 @@ for _ in range(1000):  # Adjust the number of donors as needed
         })
 
 # Display a sample of the generated data
-for donor in donors[:5000]:
+for donor in donors[:7000]:
     print(donor)
 
 import csv
