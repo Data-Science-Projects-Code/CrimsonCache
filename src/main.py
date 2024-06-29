@@ -5,44 +5,52 @@ from datetime import datetime, timedelta
 
 fake = Faker()
 
+# Define age distribution for 2024
+age_distribution_2024 = [
+    (17, 0.009),
+    (18, 0.018),
+    (19, 0.015),
+    (range(20, 25), 0.056),
+    (range(25, 65), 0.688),
+    (range(65, 81), 0.217),
+]
+
+# Define blood type distribution
+blood_type_distribution = [
+    ('O positive', 0.39),
+    ('A positive', 0.30),
+    ('B positive', 0.09),
+    ('O negative', 0.07),
+    ('A negative', 0.06),
+    ('AB positive', 0.04),
+    ('B negative', 0.02),
+    ('AB negative', 0.01),
+]
+
+# Define sex distribution for 2024
+sex_distribution_2024 = [
+    ('Male', 0.459),
+    ('Female', 0.541),
+]
+
+# Define ethnicity distribution
+ethnicity_distribution = [
+    ('White', 0.878),
+    ('Hispanic', 0.058),
+    ('Black', 0.027),
+    ('Asian', 0.03),
+    ('Native American', 0.005),
+    ('Native Hawaiian or Pacific Islander', 0.002),
+]
+
 # Define blood type distribution by ethnicity
-blood_type_distribution_by_ethnicity = {
-    'White': {'O': 0.45, 'A': 0.40, 'B': 0.11, 'AB': 0.04},
-    'Hispanic': {'O': 0.57, 'A': 0.31, 'B': 0.10, 'AB': 0.03},
-    'Black': {'O': 0.50, 'A': 0.26, 'B': 0.20, 'AB': 0.04},
-    'Asian': {'O': 0.40, 'A': 0.28, 'B': 0.25, 'AB': 0.07},
-    'Native American': {'O': 0.55, 'A': 0.35, 'B': 0.08, 'AB': 0.03},
-    'Other': {'O': 0.47, 'A': 0.37, 'B': 0.12, 'AB': 0.04}
-}
-
-# Ethnicity distribution by year
-ethnicity_distribution_by_year = {
-    2019: {'White': 0.87, 'Black': 0.027, 'Hispanic': 0.058, 'Asian': 0.030, 'Native American': 0.005, 'Other': 0.005},
-    2020: {'White': 0.845, 'Black': 0.0233, 'Hispanic': 0.053, 'Asian': 0.027, 'Native American': 0.0045, 'Other': 0.005},
-    2021: {'White': 0.80, 'Black': 0.0175, 'Hispanic': 0.048, 'Asian': 0.0195, 'Native American': 0.003, 'Other': 0.005},
-    2022: {'White': 0.80, 'Black': 0.0175, 'Hispanic': 0.048, 'Asian': 0.0195, 'Native American': 0.003, 'Other': 0.005},
-    2023: {'White': 0.80, 'Black': 0.0175, 'Hispanic': 0.048, 'Asian': 0.0195, 'Native American': 0.003, 'Other': 0.005},
-    2024: {'White': 0.80, 'Black': 0.0175, 'Hispanic': 0.048, 'Asian': 0.0195, 'Native American': 0.003, 'Other': 0.005}
-}
-
-# Gender distribution by year
-gender_distribution_by_year = {
-    2019: {'Male': 0.51, 'Female': 0.49},
-    2020: {'Male': 0.4845, 'Female': 0.5155},
-    2021: {'Male': 0.459, 'Female': 0.541},
-    2022: {'Male': 0.459, 'Female': 0.541},
-    2023: {'Male': 0.459, 'Female': 0.541},
-    2024: {'Male': 0.459, 'Female': 0.541}
-}
-
-# Age distribution by year
-age_distribution_by_year = {
-    2019: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.086, range(25, 65): 0.632, range(65, 81): 0.161},
-    2020: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.071, range(25, 65): 0.660, range(65, 81): 0.143},
-    2021: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.056, range(25, 65): 0.688, range(65, 81): 0.217},
-    2022: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.056, range(25, 65): 0.688, range(65, 81): 0.217},
-    2023: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.056, range(25, 65): 0.688, range(65, 81): 0.217},
-    2024: {16: 0.042, 17: 0.042, 18: 0.042, range(19, 25): 0.056, range(25, 65): 0.688, range(65, 81): 0.217}
+blood_type_by_ethnicity = {
+    'White': [('O positive', 0.45), ('A positive', 0.40), ('B positive', 0.11), ('AB positive', 0.04)],
+    'Hispanic': [('O positive', 0.57), ('A positive', 0.31), ('B positive', 0.10), ('AB positive', 0.03)],
+    'Black': [('O positive', 0.50), ('A positive', 0.26), ('B positive', 0.20), ('AB positive', 0.04)],
+    'Asian': [('O positive', 0.40), ('A positive', 0.28), ('B positive', 0.25), ('AB positive', 0.07)],
+    'Native American': [('O positive', 0.55), ('A positive', 0.35), ('B positive', 0.08), ('AB positive', 0.03)],
+    'Native Hawaiian or Pacific Islander': [('O positive', 0.55), ('A positive', 0.35), ('B positive', 0.08), ('AB positive', 0.03)],
 }
 
 # Custom provider to ensure name matches sex
@@ -54,65 +62,54 @@ class CustomProvider:
         else:
             return fake.name_female()
 
-# Function to generate realistic blood types based on ethnicity
-def generate_blood_type(ethnicity):
-    blood_type_probs = blood_type_distribution_by_ethnicity[ethnicity]
-    blood_type = random.choices(
-        population=list(blood_type_probs.keys()),
-        weights=list(blood_type_probs.values()),
-        k=1
-    )[0]
-    if blood_type == 'O':
-        return random.choice(['O positive', 'O negative'])
-    elif blood_type == 'A':
-        return random.choice(['A positive', 'A negative'])
-    elif blood_type == 'B':
-        return random.choice(['B positive', 'B negative'])
-    elif blood_type == 'AB':
-        return random.choice(['AB positive', 'AB negative'])
-
 # Factory for creating a donor
 class DonorFactory(factory.Factory):
     class Meta:
         model = dict
 
     donor_id = factory.Sequence(lambda n: n + 1)
-    year = factory.LazyAttribute(lambda x: random.choice([2019, 2020, 2021, 2022, 2023, 2024]))
     sex = factory.LazyAttribute(lambda x: random.choices(
-        population=list(gender_distribution_by_year[x.year].keys()),
-        weights=list(gender_distribution_by_year[x.year].values())
+        [sex for sex, _ in sex_distribution_2024],
+        [prob for _, prob in sex_distribution_2024]
     )[0])
     name = factory.LazyAttribute(lambda x: CustomProvider.name(x.sex))
-    ethnicity = factory.LazyAttribute(lambda x: random.choices(
-        population=list(ethnicity_distribution_by_year[x.year].keys()),
-        weights=list(ethnicity_distribution_by_year[x.year].values())
-    )[0])
     age = factory.LazyAttribute(lambda x: random.choices(
-        population=[age if isinstance(age, int) else random.choice(list(age)) for age in age_distribution_by_year[x.year].keys()],
-        weights=list(age_distribution_by_year[x.year].values())
+        [age if isinstance(age, int) else random.choice(list(age)) for age, _ in age_distribution_2024],
+        [prob for _, prob in age_distribution_2024]
     )[0])
     birthdate = factory.LazyAttribute(lambda x: datetime.today().replace(year=datetime.today().year - x.age).date())
-    blood_type = factory.LazyAttribute(lambda x: generate_blood_type(x.ethnicity))
-    first_time_donor = factory.LazyAttribute(lambda x: random.random() < 0.23)
-    number_of_donations = factory.LazyAttribute(lambda x: int(round(random.normalvariate(1.8, 0.5))) if not x.first_time_donor else 1)
-    last_donation_date = factory.LazyAttribute(lambda x: fake.date_between(start_date=f'-{x.age}y', end_date='today'))
+    ethnicity = factory.LazyAttribute(lambda x: random.choices(
+        [ethnicity for ethnicity, _ in ethnicity_distribution],
+        [prob for _, prob in ethnicity_distribution]
+    )[0])
+    blood_type = factory.LazyAttribute(lambda x: random.choices(
+        [blood_type for blood_type, _ in blood_type_by_ethnicity[x.ethnicity]],
+        [prob for _, prob in blood_type_by_ethnicity[x.ethnicity]]
+    )[0])
+    first_time_donor = factory.LazyAttribute(lambda x: random.random() < 0.12)
+    number_of_donations = factory.LazyAttribute(lambda x: 1 if x.first_time_donor else random.randint(1, 10))
+    last_donation_date = factory.LazyAttribute(lambda x: fake.date_between(start_date='-10y', end_date='today'))
 
-# Function to generate donation dates
-def generate_donation_dates(start_date, num_donations):
-    donation_dates = [start_date]
+# Function to generate donation dates ensuring they are at least 112 days apart and within a valid age range
+def generate_donation_dates(start_date, num_donations, birthdate):
+    donation_dates = []
     current_date = datetime.combine(start_date, datetime.min.time())
-    for _ in range(num_donations - 1):
-        current_date += timedelta(days=random.randint(112, 365))
-        if current_date.date() > datetime.today().date():
+    min_date = datetime.combine(birthdate.replace(year=birthdate.year + 17), datetime.min.time())
+    while len(donation_dates) < num_donations:
+        if current_date < min_date:
             break
         donation_dates.append(current_date.date())
+        current_date -= timedelta(days=random.randint(112, 365))
+        # Randomly skip some years
+        if random.random() < 0.3:
+            current_date -= timedelta(days=365 * random.randint(1, 3))
     return donation_dates
 
 # Generate the data
 donors = []
 for _ in range(1000):  # Adjust the number of donors as needed
     donor = DonorFactory()
-    donation_dates = generate_donation_dates(donor['last_donation_date'], donor['number_of_donations'])
+    donation_dates = generate_donation_dates(datetime.today(), donor['number_of_donations'], donor['birthdate'])
     for idx, date in enumerate(donation_dates):
         donors.append({
             'donor_id': donor['donor_id'],
@@ -127,6 +124,23 @@ for _ in range(1000):  # Adjust the number of donors as needed
         })
 
 # Display a sample of the generated data
-for donor in donors[:10]:
+for donor in donors[:5000]:
     print(donor)
+
+import csv
+
+# Specify the filename
+filename = '../data/donors.csv'
+
+# Define the header
+header = ['donor_id', 'name', 'birthdate', 'age_at_donation', 'sex', 'ethnicity', 'blood_type', 'first_time_donor', 'donation_date']
+
+# Write the data to a CSV file
+with open(filename, 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=header)
+    writer.writeheader()
+    for donor in donors:
+        writer.writerow(donor)
+
+print(f"Data has been written to {filename}")
 
