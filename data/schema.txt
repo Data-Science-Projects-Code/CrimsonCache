@@ -1,0 +1,185 @@
+CREATE TABLE Donor_info (
+    donor_id INT PRIMARY KEY,
+    bag_id INT,
+    donor_name VARCHAR(255),
+    city VARCHAR(255),
+    contact VARCHAR(255),
+    gender VARCHAR(50),
+    date_of_donor DATE,
+    dob DATE,
+    weight DECIMAL(5, 2),
+    camp_id INT,
+    employee_id INT
+);
+
+CREATE TABLE Storage (
+    bag_id INT PRIMARY KEY,
+    test_date DATE,
+    shelf_number VARCHAR(255),
+    cell_number VARCHAR(255)
+);
+
+CREATE TABLE Blood_BagInfo (
+    bag_id INT PRIMARY KEY,
+    blood_group VARCHAR(50),
+    haemoglobin DECIMAL(5, 2),
+    blood_pressure VARCHAR(50),
+    pulse INT,
+    date_of_donation DATE
+);
+
+CREATE TABLE Discard_management (
+    bag_id INT PRIMARY KEY,
+    test_date DATE,
+    test_result VARCHAR(255)
+);
+
+CREATE TABLE Disease_recognizer (
+    bag_id INT,
+    employee_id INT,
+    disease_detected VARCHAR(255),
+    test_date DATE,
+    PRIMARY KEY (bag_id, employee_id)
+);
+
+CREATE TABLE Customer_individual (
+    customer_id INT PRIMARY KEY,
+    request_id INT,
+    date DATE,
+    bag_id INT
+);
+
+CREATE TABLE Customer_hospital (
+    request_id INT PRIMARY KEY,
+    hospital_id INT,
+    bag_id INT
+);
+
+CREATE TABLE Blood_request (
+    request_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    contact VARCHAR(255),
+    bags_required INT,
+    blood_group VARCHAR(50),
+    date_of_request DATE,
+    date_of_requirement DATE
+);
+
+CREATE TABLE Replacement (
+    donor_id INT,
+    customer_id INT,
+    date DATE,
+    PRIMARY KEY (donor_id, customer_id)
+);
+
+CREATE TABLE Camp_info (
+    camp_id INT PRIMARY KEY,
+    city VARCHAR(255),
+    date_camp DATE,
+    organisation_name VARCHAR(255),
+    no_of_bottles INT,
+    employee_id INT
+);
+
+CREATE TABLE Distribution (
+    date_of_distribution DATE,
+    hospital_id INT,
+    employee_id INT,
+    vehicle_number VARCHAR(255),
+    PRIMARY KEY (date_of_distribution, hospital_id, employee_id)
+);
+
+CREATE TABLE Hospital_info (
+    hospital_id INT PRIMARY KEY,
+    hospital_name VARCHAR(255),
+    hospital_address VARCHAR(255)
+);
+
+CREATE TABLE Accounts_camp (
+    camp_id INT,
+    expense_type VARCHAR(255),
+    amount DECIMAL(10, 2),
+    employee_id INT,
+    PRIMARY KEY (camp_id, expense_type)
+);
+
+CREATE TABLE Accounts_Bloodbank (
+    employee_id INT,
+    type_name VARCHAR(255),
+    credit DECIMAL(10, 2),
+    debit DECIMAL(10, 2),
+    PRIMARY KEY (employee_id, type_name)
+);
+
+CREATE TABLE Accounts_HR (
+    employee_id INT,
+    base_salary DECIMAL(10, 2),
+    incentives DECIMAL(10, 2),
+    month INT,
+    year INT,
+    PRIMARY KEY (employee_id, month, year)
+);
+
+CREATE TABLE HR (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    designation VARCHAR(255),
+    age INT,
+    gender VARCHAR(50),
+    contact VARCHAR(255),
+    email VARCHAR(255),
+    department VARCHAR(255)
+);
+
+-- Foreign keys
+ALTER TABLE Donor_info
+ADD FOREIGN KEY (camp_id) REFERENCES Camp_info(camp_id);
+
+ALTER TABLE Donor_info
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
+ALTER TABLE Storage
+ADD FOREIGN KEY (bag_id) REFERENCES Blood_BagInfo(bag_id);
+
+ALTER TABLE Discard_management
+ADD FOREIGN KEY (bag_id) REFERENCES Blood_BagInfo(bag_id);
+
+ALTER TABLE Disease_recognizer
+ADD FOREIGN KEY (bag_id) REFERENCES Blood_BagInfo(bag_id);
+
+ALTER TABLE Disease_recognizer
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
+ALTER TABLE Customer_individual
+ADD FOREIGN KEY (bag_id) REFERENCES Blood_BagInfo(bag_id);
+
+ALTER TABLE Customer_hospital
+ADD FOREIGN KEY (hospital_id) REFERENCES Hospital_info(hospital_id);
+
+ALTER TABLE Customer_hospital
+ADD FOREIGN KEY (bag_id) REFERENCES Blood_BagInfo(bag_id);
+
+ALTER TABLE Replacement
+ADD FOREIGN KEY (donor_id) REFERENCES Donor_info(donor_id);
+
+ALTER TABLE Replacement
+ADD FOREIGN KEY (customer_id) REFERENCES Customer_individual(customer_id);
+
+ALTER TABLE Distribution
+ADD FOREIGN KEY (hospital_id) REFERENCES Hospital_info(hospital_id);
+
+ALTER TABLE Distribution
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
+ALTER TABLE Accounts_camp
+ADD FOREIGN KEY (camp_id) REFERENCES Camp_info(camp_id);
+
+ALTER TABLE Accounts_camp
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
+ALTER TABLE Accounts_Bloodbank
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
+ALTER TABLE Accounts_HR
+ADD FOREIGN KEY (employee_id) REFERENCES HR(employee_id);
+
