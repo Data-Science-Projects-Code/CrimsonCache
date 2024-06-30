@@ -17,18 +17,6 @@ age_distribution_2024 = [
     (range(65, 81), 0.217),
 ]
 
-# Define blood type distribution
-blood_type_distribution = [
-    ('O positive', 0.39),
-    ('A positive', 0.30),
-    ('B positive', 0.09),
-    ('O negative', 0.07),
-    ('A negative', 0.06),
-    ('AB positive', 0.04),
-    ('B negative', 0.02),
-    ('AB negative', 0.01),
-]
-
 # Define sex distribution for 2024
 sex_distribution_2024 = [
     ('Male', 0.459),
@@ -165,13 +153,15 @@ for _ in range(3000):  # Adjust the number of donors as needed
             'ethnicity': donor['ethnicity'],
             'blood_type': donor['blood_type'],
             'first_time_donor': donor['first_time_donor'] if idx == 0 else False,
-            'donation_date': date.strftime('%Y-%m-%d %H:%M:%S'),
             'donation_datetime': generate_random_donation_datetime(date).strftime('%Y-%m-%d %H:%M:%S')
         })
+
+
 
 # Display a sample of the generated data
 for donor in donors[:40]:
     print(donor)
+
 
 # Specify the filename
 filename = '../data/donors.csv'
