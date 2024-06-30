@@ -57,7 +57,7 @@ blood_type_by_ethnicity = {
               ('B positive', 0.09), ('B negative', 0.01), 
               ('AB positive', 0.02),('AB negative', 0.01)],
     
-    'Black':[('O positive', 0.46)%y+, ('O negative', 0.04), 
+    'Black':[('O positive', 0.46), ('O negative', 0.04), 
               ('A positive', 0.24), ('A negative', 0.02),
               ('B positive', 0.18), ('B negative', 0.01), 
               ('AB positive', 0.04),('AB negative', 0.01)] ,
@@ -128,8 +128,9 @@ def generate_donation_dates(start_date, num_donations, birthdate):
     donation_dates = []
     current_date = datetime.combine(start_date, datetime.min.time())
     min_date = datetime.combine(birthdate.replace(year=birthdate.year + 17), datetime.min.time())
+    min_donation_date = datetime.strptime('2019-01-01', '%Y-%m-%d')
     while len(donation_dates) < num_donations:
-        if current_date < min_date:
+        if current_date < min_date or current_date < min_donation_date:
             break
         # Random hour and minute to simulate semi-random donation times
         random_hour = random.randint(8, 18)  # Assuming donations happen during daytime
@@ -142,14 +143,12 @@ def generate_donation_dates(start_date, num_donations, birthdate):
             current_date -= timedelta(days=365 * random.randint(1, 3))
     return donation_dates
 
-
 # Function to generate random donation datetime
 def generate_random_donation_datetime(start_date):
     random_days = random.randint(0, 28)  # Generate a random day of the month
     random_hours = random.randint(0, 23)
     random_minutes = random.randint(0, 59)
     return datetime.combine(start_date, datetime.min.time()) + timedelta(days=random_days, hours=random_hours, minutes=random_minutes)
-
 
 # Generate the data
 donors = []
@@ -173,7 +172,6 @@ for _ in range(3000):  # Adjust the number of donors as needed
 # Display a sample of the generated data
 for donor in donors[:40]:
     print(donor)
-
 
 # Specify the filename
 filename = '../data/donors.csv'
