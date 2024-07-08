@@ -1,5 +1,7 @@
 # Define age distribution for 2024
-age_distribution_2024 = [
+
+
+AGE_DISTRIBUTION_2024 = [
     (17, 0.009),
     (18, 0.018),
     (19, 0.015),
@@ -9,13 +11,13 @@ age_distribution_2024 = [
 ]
 
 # Define sex distribution for 2024
-sex_distribution_2024 = [
+SEX_DISTRIBUTION_2024 = [
     ('Male', 0.459),
     ('Female', 0.541),
 ]
 
 # Define ethnicity distribution
-ethnicity_distribution = [
+ETHNICITY_DISTRIBUTION = [
     ('White', 0.878),
     ('Hispanic', 0.058),
     ('Black', 0.027),
@@ -25,7 +27,7 @@ ethnicity_distribution = [
 ]
 
 # Define blood type distribution by ethnicity
-blood_type_by_ethnicity = {
+BLOOD_TYPE_BY_ETHNICITY = {
     'White': [('O positive', 0.37), ('O negative', 0.08), 
               ('A positive', 0.33), ('A negative', 0.07),
               ('B positive', 0.09), ('B negative', 0.02), 
