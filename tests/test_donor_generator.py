@@ -9,7 +9,7 @@ sys.path.insert(
 )
 
 
-from donor_generator import DB_PATH, main
+from main import DB_PATH  # , main
 
 
 def test_database_exists():
@@ -62,4 +62,3 @@ def test_no_donor_under_17():
     count = cursor.fetchone()[0]
     conn.close()
     assert count == 0, "Some donors are under 17 years old!"
-
