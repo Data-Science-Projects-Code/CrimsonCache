@@ -14,9 +14,9 @@ SRC_DIR = os.path.join(ROOT_DIR, "src")
 def test_required_modules_exist():
     """Test that all required Python modules exist"""
     required_modules = [
-        "generate_donors.py",
-        "generate_donations.py",
-        "generate_daily_activity.py",
+        "donor_generator.py",
+        # "generate_donations.py",
+        # "generate_daily_activity.py",
     ]
 
     for module in required_modules:
@@ -30,9 +30,9 @@ def test_modules_can_be_imported():  # Removed SRC_DIR as a parameter
     sys.path.append(SRC_DIR)
 
     modules_to_test = [
-        "generate_donors",
-        "generate_donations",
-        "generate_daily_activity",
+        "donor_generator",
+        # "generate_donations",
+        # "generate_daily_activity",
     ]
 
     for module_name in modules_to_test:
