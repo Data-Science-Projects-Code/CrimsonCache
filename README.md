@@ -1,46 +1,48 @@
 # CrimsonCache
+
 CrimsonCache creates a synthetic blood bank database that matches the current aggregate blood donation data in the US. It’s designed for SQL practice.
 
 # About the data
+
 CrimsonCache creates a synthetic dataset and, from that, a database. The people contained within it are not real; however, the aggregate statistics which the database models are. The sources of the statistics are [Statistica][1], an article by the [Stanford Blood Center][2], and [America's Blood Centers][3].
 
 [Statistica][4] also provided data on changes amongst donors over time, including donations by race, and a breakdown of blood type and Rh by race for all but Native Americans and Hawaiian and Pacific Islanders. For these two groups, Rh breakdowns were approximated.  For Native Americans, a 93:7 percent split was used, based on the work of this [paper][5]. The Rh breakdown for Hawaiian and Pacific Islanders was approximated from the [Blood Bank of Hawaii][6]. The results were aggregated by blood type.
 
-Regarding race, you’ll notice I have an unusual mix of color along with what is normally construed as race for field names, and all of which is now referred to as ethnicity. I don’t believe this the best way of capturing diversity, but I don’t think race works either. Caucasian and African-American are ethnicities, but one could be white with no ancestors from the Caucasus 
+Regarding race, you’ll notice I have an unusual mix of color along with what is normally construed as race for field names, and all of which is now referred to as ethnicity. I don’t believe this the best way of capturing diversity, but I don’t think race works either. Caucasian and African-American are ethnicities, but one could be white with no ancestors from the Caucasus
 
+Or you could be like an friend of mine who had immigrated from Egypt and whose ancestors had lived in Egypt for hundreds years. It really stuck with him that people didn't think of him as African-American when he knew he had emigrated from Africa a few years earlier. The same goes for South Africans. And I have never once seen a comprehensive list of what all the races are supposed to be or how how to be deal with how most people are mixed to some degree or another.
 
-Or you could be like an friend of mine who had immigrated from Egypt and whose ancestors had lived in Egypt for hundreds years. It really stuck with him that people didn't think of him as African-American when he knew he had immgrated from Africa a few years earlier. The same goes for South Africans. And I have never once seen a comprehensive list of what all the races are supposed to be or how how to be deal with how most people are mixed to some degree or another.
-
-However, we know conditions like [sickle cell disease][7] have a genetic component that is best described with the accurate (but wordy) “people of sub-Saharan African origin living in other parts of the world,” so dispensing with the collection is probably not a great idea. And, I just found out that Peru is close to 100% O positive, and the Blackfoot Native American tribe is about 70% A positive. 
+However, we know conditions like [sickle cell disease][7] have a genetic component that is best described with the accurate (but wordy) “people of sub-Saharan African origin living in other parts of the world,” so dispensing with the collection is probably not a great idea. And, I just found out that Peru is close to 100% O positive, and the Blackfoot Native American tribe is about 70% A positive.
 
 So, I'm calling it ethnicity and that stays until it gets replaced by something better.
 
 # About the schema
+
 The schema is modified from [Blood Bank Management and Inventory Control Database Management System][8] by Aman Shah, et al. In the paper they propose a system and schema that would not likely work in the US (India has, as least notionally, universal health care; the US is mostly for profit). However, I don't think it's necessary to develop a schema that captures a fictional US blood bank *in excruciating detail* in order to create a functional dataset.
 
-
-
-
-
 # Future Work
+
 Right now this is what I need to focus on:
- - [ ] Statistical tests 
- - [ ] Outside validation
+
+- [ ] Minor fixes
+            - Have names match sex
+- [ ] Statistical tests
+- [ ] Outside validation
             - I'm not sure about the best way to do this. Ideally, it would be to get access to a real dataset
               but that may not be possible
- - [ ] Test to ensure a seed produces a reproduceable result 
- - [ ] Export to database(s)
-            - Ingest to SQLlite or Postres. That allows for a follow-on project with ELT pipeline for analysis 
- - [ ] Refactor for hypothesis testing
+- [ ] Test to ensure a seed produces a reproducible result
+- [x] Export to database(s)
+            - Ingest to SQLlite or Postgres. That allows for a follow-on project with ELT pipeline for analysis
+- [ ] Refactor for hypothesis testing
             - The goal is to be able to model questions like "What happens if we have a successful program where
-              people contine to donate?" or "If people are economically stressed and less likely to donate, how would impact supply?"
-  - [ ] Incorporating dynamic data to simulate changes in donation patterns over time in ways that are similar to but different from actual changes
-  - [ ] Add more detailed fake demographic information, such as age and location
+              people continue to donate?" or "If people are economically stressed and less likely to donate, how would impact supply?"
+- [ ] Incorporating dynamic data to simulate changes in donation patterns over time in ways that are similar to but different from actual changes
+- [ ] Add more detailed fake demographic information, such as age and location
 
 [1]: https://www.statista.com/topics/7512/blood-donation-in-the-us/
 [2]: https://stanfordbloodcenter.org/products-and-services/
 [3]: https://americasblood.org/statistics_guide/
-[4]: https://www.statista.com/statistics/1203831/blood-type-distribution-us-by-ethnicity/ 
+[4]: https://www.statista.com/statistics/1203831/blood-type-distribution-us-by-ethnicity/
 [5]: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2135301/pdf/73.pdf
 [6]: https://www.bbh.org/about-blood/
 [7]: https://en.wikipedia.org/wiki/Sickle_cell_disease
