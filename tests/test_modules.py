@@ -15,7 +15,7 @@ def test_required_modules_exist():
     """Test that all required Python modules exist"""
     required_modules = [
         "donor_generator.py",
-        # "generate_donations.py",
+        "donation_history_generator.py",
         # "generate_daily_activity.py",
     ]
 
@@ -31,7 +31,7 @@ def test_modules_can_be_imported():  # Removed SRC_DIR as a parameter
 
     modules_to_test = [
         "donor_generator",
-        # "generate_donations",
+        "donation_history_generator",
         # "generate_daily_activity",
     ]
 
