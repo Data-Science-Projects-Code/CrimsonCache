@@ -2,6 +2,10 @@
 
 CrimsonCache creates a synthetic blood bank database that matches the current aggregate blood donation data in the US. It’s designed for SQL practice.
 
+# Immediate Start
+
+If you're not interested in the generating your own database and just want something to practice on now, you can download just the databases by clicking the data folder above, then .sqlite3 files, and then `View raw` which should download it to your machine.
+
 # About the data
 
 CrimsonCache creates a synthetic dataset and, from that, a database. The people contained within it are not real; however, the aggregate statistics which the database models are. The sources of the statistics are [Statistica][1], an article by the [Stanford Blood Center][2], and [America's Blood Centers][3].
