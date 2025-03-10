@@ -1,8 +1,10 @@
 # Those annoying .DS_Store files
 .DS_Store
 
-
+logs/
 purgatory/
+
+
 
 
 # Byte-compiled / optimized / DLL files
