@@ -1,0 +1,25 @@
+
+
+-- blood type with precent by total
+select count(*) as total, blood_type, 
+       count(*)/30 as per_cent_of_total
+from donors
+
+group by blood_type;
+
+
+
+/* Donors in 2 year bins. The bins are left-inclusive 
+    meaning 17-18 includes 17 but not 19.
+   (to match Pandas binning right=False)*/ 
+
+SELECT 
+    (age - 17) / 2 * 2 + 17 AS Age_Group_Start, 
+    (age - 17) / 2 * 2 + 18 AS Age_Group_End,
+    COUNT(*) AS Count
+FROM donors
+WHERE age >= 17
+GROUP BY (age - 17) / 2 * 2 + 17
+ORDER BY Age_Group_Start;
+
+
