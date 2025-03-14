@@ -1,19 +1,10 @@
--- Enable foreign key support
 PRAGMA foreign_keys = ON;
 
-CREATE TABLE locations (
-    location_id UUID PRIMARY KEY,
-    name TEXT,
-    address TEXT,
-    town TEXT,
-    blood_bank BOOLEAN
-);
 
 CREATE TABLE employees (
     employee_id UUID PRIMARY KEY,
     name TEXT,
-    location_id UUID,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    hire_date DATE
 );
 
 CREATE TABLE donors (
@@ -27,13 +18,20 @@ CREATE TABLE donors (
     blood_type TEXT
 );
 
+-- this doesn't have anything for a location. Not sure I need that.
 CREATE TABLE donation_events (
     event_id UUID PRIMARY KEY,
-    location_id UUID,
     start_datetime TIMESTAMP,
     end_datetime TIMESTAMP,
-    units_collected INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    total_units INTEGER,
+    a_pos INTEGER,
+    a_neg INTEGER,
+    b_pos INTEGER,
+    b_neg INTEGER,
+    o_pos INTEGER,
+    o_neg INTEGER,
+    ab_pos INTEGER,
+    ab_neg INTEGER
 );
 
 CREATE TABLE event_employees (
@@ -45,12 +43,10 @@ CREATE TABLE event_employees (
 );
 
 CREATE TABLE hospitals (
-    hospital_id UUID PRIMARY KEY,
-    location_id UUID,
-    physician TEXT,
-    contact_name TEXT,
-    contact_phone TEXT,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    NPI INTEGER PRIMARY KEY,
+    address TEXT,
+    tel INTEGER,
+    POC TEXT
 );
 
 CREATE TABLE patients (
@@ -61,13 +57,13 @@ CREATE TABLE patients (
 
 CREATE TABLE blood_requests (
     request_id UUID PRIMARY KEY,
-    hospital_id UUID,
+    NPI INTEGER,
     request_datetime TIMESTAMP,
     units_requested INTEGER,
     blood_type TEXT,
     status TEXT,
     patient_id UUID,
-    FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id),
+    FOREIGN KEY (NPI) REFERENCES hospitals(NPI),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
 );
 
@@ -85,11 +81,11 @@ CREATE TABLE donations (
 CREATE TABLE distribution (
     distribution_id UUID PRIMARY KEY,
     bag_id TEXT,
-    hospital_id UUID,
+    NPI INTEGER,
     distribution_date TIMESTAMP,
     request_id UUID,
     FOREIGN KEY (bag_id) REFERENCES donations(bag_id),
-    FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id),
+    FOREIGN KEY (NPI) REFERENCES hospitals(NPI),
     FOREIGN KEY (request_id) REFERENCES blood_requests(request_id)
 );
 
