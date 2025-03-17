@@ -53,6 +53,7 @@ CREATE TABLE hospitals (
 CREATE TABLE patients (
     patient_id UUID PRIMARY KEY,
     admission_date DATE,
+    blood_type TEXT,
     bag_id TEXT
 );
 
