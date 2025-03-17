@@ -1,0 +1,6 @@
+- name: Configure AWS Credentials
+  uses: aws-actions/configure-aws-credentials@v2
+  with:
+    role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+    role-session-name: github-actions
+    aws-region: us-east-1
